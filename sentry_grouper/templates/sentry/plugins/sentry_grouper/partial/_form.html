@@ -1,0 +1,22 @@
+{% load i18n %}
+{% csrf_token %}
+{% if form.non_field_errors %}
+    <div class="alert alert-block alert-error">
+        <p>{% trans "There were errors saving your changes:" %}</p>
+        <ul>
+            {% for error in form.non_field_errors %}
+                <li>{{ error }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endif %}
+{% for field in form %}
+    <div class="control-group">
+        {% ifchanged field.field.widget.attrs.group_name %}
+            <legend>{{ field.field.widget.attrs.group_name }}</legend>
+        {% endifchanged %}
+        <div id="formCenter" class="span3">
+            {% include "sentry/partial/_form_field.html" %}
+        </div>
+    </div>
+{% endfor %}

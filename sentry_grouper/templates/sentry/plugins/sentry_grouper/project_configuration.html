@@ -1,0 +1,26 @@
+{% load i18n %}
+
+{% if plugin_description %}
+    {{ plugin_description|linebreaks }}
+{% endif %}
+
+{% if request.GET.success %}
+    <div class="alert alert-success">
+        {% trans "Changes to your project were saved successfully." %}
+        <a class="close" data-dismiss="alert" href="javascript:void(0)">&times;</a>
+    </div>
+{% endif %}
+
+<form action="" method="post">
+{% for subform in form %}
+    <fieldset class="well">
+        {% with subform as form %}
+            {% include "sentry/plugins/sentry_grouper/partial/_form.html" %}
+        {% endwith %}
+    </fieldset>
+{% endfor %}
+{{ form.management_form }}
+    <fieldset class="form-actions">
+        <button type="submit" class="btn btn-primary">{% trans "Save Changes" %}</button>
+    </fieldset>
+</form>
